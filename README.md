@@ -13,12 +13,14 @@ you can see at `coect-umedia` and other Coect-based apps.
 
 [page.js](https://visionmedia.github.io/page.js/) is used for url routing at the
 moment. `page.js` works well but we may migrate to built-in RiotJs router added
-in 2.3 [Bootstrap 3](http://getbootstrap.com/) is used as CSS-framework. We use
+in 2.3 version.
+
+[Bootstrap 3](http://getbootstrap.com/) is used as CSS-framework. We use
 LESS at the moment but there is a plan to move most of styles inside RiotJs
 components.
 
 More info about Coect technology you can find on
-[www.coect.net](http://www.coect.net) and my blog at
+[www.coect.net](http://www.coect.net) and in my blog at
 [dogada.org](https://dogada.org) (works on `coect-umedia` actually).
 
 
