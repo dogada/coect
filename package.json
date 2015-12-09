@@ -12,7 +12,8 @@
   },
   "browserify-shim": {},
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "build": "echo Build stub."
   },
   "dependencies": {
     "debug": "^2.2.0",
