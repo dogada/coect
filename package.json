@@ -1,0 +1,45 @@
+{
+  "name": "coect",
+  "description": "Common code for Coect projects.",
+  "version": "0.1.1",
+  "main": "server/index.js",
+  "browser": "client/index.js",
+  "browserify": {
+    "transform": [
+      "brfs",
+      "riotify"
+    ]
+  },
+  "browserify-shim": {},
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "debug": "^2.2.0",
+    "lodash": "^3.10.1",
+    "riot": "~2.3.11",
+    "tflow": "^0.3.1",
+    "validator": "~4.4.0"
+  },
+  "devDependencies": {
+    "chai": "~3.4.1"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dogada/coect.git"
+  },
+  "keywords": [
+    "coect",
+    "communication",
+    "blog"
+  ],
+  "author": "Dmytro V. Dogadailo",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/dogada/coect/issues"
+  },
+  "homepage": "http://www.coect.net/"
+}
