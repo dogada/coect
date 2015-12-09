@@ -1,7 +1,6 @@
 'use strict';
 
 var riot = require('riot')
-var coect = require('coect')
 var debug = require('debug')('ui:mixins')
 
 function ajaxPostJson(url, data) {
@@ -28,7 +27,7 @@ function failHandler(xhr, text) {
 
 
 function sendJson(method, url, data) {
-  if (coect.isUndefined(data)) {
+  if (typeof data === 'undefined') {
     data = url
     url = method
     method = 'POST'

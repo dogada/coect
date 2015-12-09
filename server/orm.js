@@ -2,10 +2,7 @@ var debug = require('debug')('coect:orm')
 var _ = require('lodash')
 var tflow = require('tflow')
 var validator = require('validator')
-
 var util = require('util')
-
-
 
 function Model() {
 }
@@ -112,7 +109,7 @@ Model.create = function(data, parent, done) {
       else self.edid.generate({parent: parent}, this)
     },
     function(id) {
-      var rec = (id === data.id ? data : objectAssign({id: id}, data))
+      var rec = (id === data.id ? data : _.assign({id: id}, data))
       self.table(id).insert(self._transform(rec), 'id').asCallback(this)
     },
     function(resIds) {
