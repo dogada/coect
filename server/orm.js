@@ -60,7 +60,8 @@ Model.get = function(where, done) {
       Klass.table(where.id).where(where).first().asCallback(this)
     },
     function(row) {
-      if (!row) return this.fail(404, 'Requested ' + Klass.modelName() + 'isn\'t found.')
+      if (!row) return this.fail(404, Klass.modelName() + ' ' +
+                                 (where.id || '') + ' isn\'t found.')
       this.next(new Klass(row))
     },
   ], done);
