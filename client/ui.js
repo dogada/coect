@@ -14,7 +14,7 @@ function make(tag, opts, element) {
   
   if (!comp) {
     console.error('ui.make', tag, opts, element)
-    throw new Error('Can\'t mount tag `' + tag + '`. Is it loaded?')
+    throw new Error('Can\'t mount tag <' + tag + '> using riot '  + riot.version + '. Is it loaded?')
   }
   return comp
 }
