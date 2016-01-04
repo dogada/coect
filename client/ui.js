@@ -20,46 +20,63 @@ function make(tag, opts, element) {
 }
 
 
-function riotMounter(tag, data) {
-  debug('riotMounter', tag, Object.keys(data))
-  Site.mount(make(tag, data), data.name)
+function renderRiot(target, tag, data) {
+  debug('renderRiot', tag, Object.keys(data))
+  var fragments = {}
+  fragments[target] = make(tag, data)
+  Site.mount(fragments, data.name)
 }
 
 /**
    Echo params to callback.
 */
-function echoLoader(params, callback) {
+function echoParams(params, callback) {
   callback(null, params)
+}
+
+function mount(ctx, tag, opts) {
+  var target = opts.target || 'main'
+  var load = opts.load || echoParams
+  var render = opts.render || renderRiot
+
+  if (ctx.state[tag]) {
+    debug('using cached data for ' + tag, ctx.params)
+    debug('state', ctx.state)
+    render(target, tag, ctx.state[tag])
+  } else {
+    debug(`loading data for tag ${tag}`, ctx.params)
+    if (opts.data) render(target, tag, opts.data)
+    else load(ctx, function(err, data) {
+      if (err) return Site.error(`Can\'t show ${tag}: ${err}.`)
+      if (data) {
+        ctx.state[tag] = data
+        ctx.save()
+        render(target, tag, data)
+      } else {
+        Site.error(`No data for ${tag}.`)
+      }
+    })
+  }
 }
 
 /**
    Load data using loader, cache it in HTML5 history and mount tag with data
    into site.main by default or other target using custom mounter.
-   @param loader {(function|object)} Should load data and call mounter(tag, data) 
+   @param {function} opts.load Async loader of data required by tag
+   @param {object} opts.data Data required by tag. Either loader or data should
+   be provided.
+   @param {string} opts.target - Dynamic part of website: main, sidebar, navbar, etc 
+
 */
-function showTag(tag, loader=echoLoader, mounter=riotMounter) {
+function mounter(tag, opts={}) {
   return function(ctx) {
-    if (ctx.state.data) {
-      debug('using cached data for ' + tag, ctx.params)
-      mounter(tag, ctx.state.data)
-    } else {
-      debug(`loading data for tag ${tag}`, ctx.params)
-      if (typeof loader === 'object') mounter(tag, loader)
-      else loader(ctx, function(err, data) {
-        if (err) return Site.error(`Can\'t show ${tag}: ${err}.`)
-        if (data) {
-          ctx.state.data = data
-          ctx.save()
-          mounter(tag, data)
-        } else {
-          Site.error(`No data for ${tag}.`)
-        }
-      })
-    }
+    mount(ctx, tag, opts)
   }
 }
 
+
 module.exports = {
   make,
-  showTag: showTag
+  mount: mount,
+  mounter: mounter
 }
