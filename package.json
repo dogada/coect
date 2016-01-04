@@ -20,12 +20,14 @@
   "dependencies": {
     "debug": "^2.2.0",
     "lodash": "^3.10.1",
-    "riot": "~2.3.11",
-    "tflow": "^0.3.1",
+    "tflow": "latest",
     "validator": "~4.4.0"
   },
   "devDependencies": {
     "chai": "~3.4.1"
+  },
+  "peerDependencies": {
+    "riot": "~2.3.12"
   },
   "directories": {
     "test": "test"
