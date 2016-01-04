@@ -1,0 +1,10 @@
+{
+  "esversion": 6,      
+  "node": true,
+  "mocha": true,
+  // value.should.be.ok
+  "expr": true, 
+  "globals": {
+    "expect": false
+  }
+}

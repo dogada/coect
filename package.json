@@ -15,7 +15,9 @@
   "browserify-shim": {},
   "scripts": {
     "test": "mocha",
-    "build": "changelog"
+    "build": "changelog",
+    "lint": "jshint .",
+    "validate": "npm ls"
   },
   "dependencies": {
     "debug": "^2.2.0",
@@ -24,7 +26,8 @@
     "validator": "~4.4.0"
   },
   "devDependencies": {
-    "chai": "~3.4.1"
+    "chai": "~3.4.1",
+    "precommit-hook": "~3.0.0"
   },
   "peerDependencies": {
     "riot": "~2.3.12"
@@ -46,5 +49,9 @@
   "bugs": {
     "url": "https://github.com/dogada/coect/issues"
   },
-  "homepage": "http://www.coect.net/"
+  "homepage": "http://www.coect.net/",
+  "pre-commit": [
+    "lint",
+    "test"
+  ]
 }

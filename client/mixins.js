@@ -5,9 +5,9 @@ var debug = require('debug')('ui:mixins')
 
 function ajaxPostJson(url, data) {
   return $.ajax({
-    type: "POST",
-    contentType: "application/json; charset=utf-8",
-    dataType: "json",
+    type: 'POST',
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json',
     url: url,
     data: JSON.stringify(data)
   })
