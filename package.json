@@ -6,10 +6,13 @@
   "browser": "client/index.js",
   "browserify": {
     "transform": [
-      "brfs",
-      "riotify"
+      "riotify",
+      "babelify",
+      "browserify-versionify",
+      "browserify-shim"
     ]
   },
+
   "browserify-shim": {},
   "scripts": {
     "test": "mocha",

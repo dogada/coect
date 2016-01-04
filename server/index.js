@@ -7,7 +7,7 @@ module.exports = {
   guid: require('./guid'),
   json: require('./json'),
   time: require('./time'),
-  orm: require('./orm'),
+  orm: require('../common/orm/'),
   misc: misc,
   isUndefined: misc.isUndefined,
   HttpError: misc.HttpError

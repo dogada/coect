@@ -5,5 +5,7 @@
 
 module.exports = {
   ui: require('./ui'),
-  mixins: require('./mixins')
+  mixins: require('./mixins'),
+  object: require('../common/object'),
+  Store: require('./store')
 }
