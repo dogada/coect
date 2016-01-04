@@ -11,12 +11,12 @@ var riot = require('riot')
    @return Instantiated and mounted to elem Riot tag
 */
 function make(tag, opts, element) {
-  var comp = riot.mount(element || document.createElement('div'), tag, opts || {})[0]
-  if (!comp) {
+  var mounted = riot.mount(element || document.createElement('div'), tag, opts || {})
+  if (!mounted || !mounted[0]) {
     console.error('ui.make', tag, opts, element)
     throw new Error('Can\'t mount tag <' + tag + '> using riot '  + riot.version + '. Is it loaded?')
   }
-  return comp
+  return mounted[0]
 }
 
 
