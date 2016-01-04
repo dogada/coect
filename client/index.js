@@ -4,6 +4,7 @@
 // with Browserify 10.2.4 at least
 
 module.exports = {
+  EPOCH: require('../common').EPOCH,
   ui: require('./ui'),
   mixins: require('./mixins'),
   object: require('../common/object'),

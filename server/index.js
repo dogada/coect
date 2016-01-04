@@ -3,6 +3,7 @@
 var misc = require('./misc')
 
 module.exports = {
+  EPOCH: require('../common').EPOCH,
   addr: require('./addr'),
   guid: require('./guid'),
   json: require('./json'),
