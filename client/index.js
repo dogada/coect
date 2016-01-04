@@ -5,8 +5,9 @@
 
 module.exports = {
   EPOCH: require('../common').EPOCH,
+  routes: require('../common/routes'),
   ui: require('./ui'),
   mixins: require('./mixins'),
   object: require('../common/object'),
-  Store: require('./store')
+  Store: require('./store'),
 }
