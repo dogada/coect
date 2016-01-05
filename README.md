@@ -1,5 +1,7 @@
 # Common server and client code for Coect projects
 
+[![Build Status](https://travis-ci.org/dogada/coect.svg)](https://travis-ci.org/dogada/coect)
+
 Server-side code is located at `server/`.
 
 Client-side code is located at `client/`.
