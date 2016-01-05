@@ -34,6 +34,23 @@ function echoParams(params, callback) {
   callback(null, params)
 }
 
+function getData(ctx, id, loader, done) {
+  if (ctx.state[id]) {
+    debug(`using cached data for ${id}`, ctx.params)
+    done(null, ctx.state[id])
+  } else {
+    debug(`loading data for ${id}`, ctx.params)
+    loader(function(err, data) {
+      if (err) return Site.error(`Can\'t load data for ${id}: ${err}.`)
+      if (data) {
+        ctx.state[id] = data
+        ctx.save()
+      }
+      done(null, data)
+    })
+  }
+}
+
 function mount(ctx, tag, opts) {
   var target = opts.target || 'main'
   var load = opts.load || echoParams
@@ -77,6 +94,7 @@ function mounter(tag, opts={}) {
 
 module.exports = {
   make,
-  mount: mount,
-  mounter: mounter
+  mount,
+  mounter,
+  getData
 }

@@ -22,7 +22,12 @@ class Store {
     }
   }
 
-  get(url, done) {
+  get(url, params, done) {
+    if (!done) {
+      done = params
+      params = null
+    }
+    if (params) url += '?' + $.param(params)
     debug('get', url)
     return $.getJSON(url)
       .done(this.successHandler(done))
