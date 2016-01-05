@@ -27,10 +27,11 @@
   },
   "devDependencies": {
     "chai": "~3.4.1",
-    "precommit-hook": "~3.0.0"
+    "precommit-hook": "~3.0.0",
+    "riot": "2.3.x"
   },
   "peerDependencies": {
-    "riot": "~2.3.12"
+    "riot": "2.3.x"
   },
   "directories": {
     "test": "test"
