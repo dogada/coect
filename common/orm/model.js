@@ -29,7 +29,7 @@ class Model {
   }
 
   toString() {
-    return `${ this.constructor.modelName() }($(this.id))`
+    return `${ this.constructor.modelName() }(${ this.id })`
   }
 }
 
