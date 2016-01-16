@@ -1,5 +1,5 @@
 {
-  "esversion": 6,      
+  "esnext": true,      
   "node": true,
   "mocha": true,
   // value.should.be.ok
