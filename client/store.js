@@ -4,7 +4,7 @@ class Store {
  
   failHandler(done) {
     return function(xhr, text) {
-      console.error('failHandler text:', text, 'xhr: ', xhr)
+      console.error('Store.failHandler text:', text, 'xhr: ', xhr)
       var json = xhr.responseJSON
       var err = 'Error ' + xhr.status + ': ' + xhr.statusText
       if (json && json.error) err = json.error
@@ -33,6 +33,31 @@ class Store {
       .done(this.successHandler(done))
       .fail(this.failHandler(done))
   }
+
+  sendJson(method, url, data, done) {
+    if (!done && typeof data === 'function') {
+      done = data
+      data = {}
+    }
+
+    return $.ajax({
+      type: method,
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json',
+      url: url,
+      data: JSON.stringify(data)
+    }).done(this.successHandler(done))
+      .fail(this.failHandler(done))
+  }
+
+  post(url, data, done) {
+    this.sendJson('POST', url, data, done)
+  }
+
+  put(url, data, done) {
+    this.sendJson('PUT', url, data, done)
+  }
+
 }
 
 module.exports = Store
