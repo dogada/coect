@@ -10,4 +10,5 @@ module.exports = {
   mixins: require('./mixins'),
   object: require('../common/object'),
   Store: require('./store'),
+  Access: require('../common/access')
 }

@@ -12,5 +12,6 @@ module.exports = {
   orm: require('../common/orm/'),
   misc: misc,
   isUndefined: misc.isUndefined,
-  HttpError: misc.HttpError
+  HttpError: misc.HttpError,
+  Access: require('../common/access')
 }
