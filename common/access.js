@@ -9,7 +9,7 @@
    USER access level allows to hide hide content from search spiders but all
    registered users of the hub will have access.
 
-   CUSTOMER level usually assigned by channel's or hub's owner to some users that bought
+   VIP level usually assigned by channel's or hub's owner to customers, users that bought
    some kind of subscription plan or smth like this.
 
    Owner of content have full access to it if access is greater than DELETED.
@@ -47,7 +47,7 @@
    pages use HIDDEN access level.
 
    Access level can be valid for site context, channel context or both.
-   Site context: ROOT, USER, STAFF, CUSTOMER, EVERYONE.
+   Site context: ROOT, USER, STAFF, VIP, EVERYONE.
    Channel context: MEMBER, TAG.
    Both: ADMIN, MODERATOR.
    Project owner should decide will it use global moderators or moderators will
@@ -102,7 +102,7 @@ Access.STAFF = 40
 
 Access.TAG = 50 // users with tag assigned by channel's owner (family, friends, etc)
 
-Access.CUSTOMER = 60 // users added to 'customers' group
+Access.VIP = 60 // users added to 'vip' group
 
 Access.MEMBER = 70 // community members, followers of public channels, subscribers, etc
 
