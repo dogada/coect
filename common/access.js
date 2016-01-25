@@ -12,10 +12,9 @@
    CUSTOMER level usually assigned by channel's or hub's owner to some users that bought
    some kind of subscription plan or smth like this.
 
-   Owner of content have full access to it if access is greater or equal to
-   OWNER.
+   Owner of content have full access to it if access is greater than DELETED.
 
-   If content's access level is less than OWNER, only admins can access it (and even owner
+   If content's access level is less than or equal to DELETED, only admins can access it (and even owner
    can't). Such access level are good when you need to hide content from web-site
    but don't want to delete it (yet).
 
@@ -45,7 +44,7 @@
    on special page like 'Trash Bin' where entry can be restored.
 
    If it's need to hide entry from other but still show to owner on site
-   pages user OWNER access level.
+   pages use HIDDEN access level.
 
    Access level can be valid for site context, channel context or both.
    Site context: ROOT, USER, STAFF, CUSTOMER, EVERYONE.
@@ -53,7 +52,8 @@
    Both: ADMIN, MODERATOR.
    Project owner should decide will it use global moderators or moderators will
    be asssigned on channel basis.
-   OWNER role is valid for entity context only (channel or entry).
+
+   DELETED, TRASH, HIDDEN, REJECTED, MODERATION are entity level access states.
 
    ROOT can access any channel and any content on the site. ADMIN can access
    channel entries with access greater or equal to Access.ADMIN. Admin can
@@ -66,6 +66,7 @@
    Site-wide moderators can moderate only group with owner from 'staff' group.
    
 */
+
 class Access {
 
   static valueName(value) {
@@ -77,7 +78,9 @@ class Access {
   static nameValue(name) {
     return this[name.toUpperCase()]
   }
+
 }
+
 
 Access.ROOT =  0  // only root users (hub's admins) can access content
 
@@ -87,7 +90,7 @@ Access.DELETED = 13 // access to deleted entries (if content only is physically 
 
 Access.TRASH = 15  // access to the entries in Trash (Recycle Bin)
 
-Access.OWNER = 20 // content's owner have full access to the content
+Access.HIDDEN = 23 // only owner and admins can access content
 
 Access.REJECTED = 25 // entries that was rejected by moderators
 
