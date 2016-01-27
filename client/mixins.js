@@ -14,7 +14,7 @@ function ajaxPostJson(url, data) {
 }
 
 function failHandler(xhr, text) {
-  console.error('failHandler text:', text, 'xhr: ', xhr)
+  console.error('mixins.failHandler text:', text, 'xhr: ', xhr)
   var json = xhr.responseJSON
   var err = 'Error ' + xhr.status + ': ' + xhr.statusText
   if (json && json.error) err = json.error

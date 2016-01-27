@@ -41,7 +41,8 @@ function getData(ctx, id, loader, done) {
   } else {
     debug(`loading data for ${id}`, ctx.params)
     loader(function(err, data) {
-      if (err) return Site.error(`Can\'t load data for ${id}: ${err}.`)
+      //if (err) return Site.error(`Can\'t load data for ${id}: ${err}.`)
+      if (err) return
       if (data) {
         ctx.state[id] = data
         ctx.save()

@@ -79,6 +79,16 @@ class Access {
     return this[name.toUpperCase()]
   }
 
+  /*
+    Return first valid access (and bypass undefined values).
+   */
+  static firstOf() {
+    for (let x of arguments) {
+      if (typeof x === 'number') return x
+    }
+  }
+
+
 }
 
 

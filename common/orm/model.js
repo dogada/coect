@@ -1,5 +1,5 @@
 'use strict';
-var debug = require('debug')('coect:orm')
+var debug = require('debug')('coect:model')
 var _ = require('lodash')
 var tflow = require('tflow')
 var validator = require('validator')
@@ -81,7 +81,6 @@ Model.get = function(where, opts, done) {
       Klass.findOne(where, opts, this)
     },
     function(model) {
-      debug('Loaded', model)
       if (!model) return this.fail(
         404, Klass.modelName() + ' ' + (where.id || '') + ' isn\'t found.')
       else this.next(model)

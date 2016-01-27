@@ -1,7 +1,11 @@
 var debug = require('debug')('coect:store')
 
 class Store {
- 
+
+  constructor() {
+    this.cache = {}
+  }
+
   failHandler(done) {
     return function(xhr, text) {
       console.error('Store.failHandler text:', text, 'xhr: ', xhr)
@@ -12,6 +16,7 @@ class Store {
         var e = json.errors[0]
         err = e.param + ': ' + e.msg
       }
+      Site.error(err)
       done(err)
     }
   }
