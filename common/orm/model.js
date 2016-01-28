@@ -183,19 +183,18 @@ Model._transform = function(data) {
 
 Model.validate = function(data, schema, done) {
   var errors = []
-  debug('validate', data)
+  //debug('validate', schema)
   Object.keys(data).forEach(function(key) {
     var value = data[key]
-    debug('key', key, 'value', value)
+    //debug('key', key, 'value', value)
     Object.keys(schema[key] || {}).forEach(function(check) {
       if (check === 'optional') return
       var args = [value].concat(schema[key][check].options || [])
-      debug('check', check, args)
+      //debug('--check', check, args)
       if (!validator[check].apply(validator, args)) {
         errors.push({
           param: key,
-          msg: schema[key][check].errorMessage || schema[key].errorMessage || 'Bad input: ' + key,
-          value: value
+          msg: schema[key][check].errorMessage || schema[key].errorMessage || 'Bad input: ' + key
         })
       }
     })
