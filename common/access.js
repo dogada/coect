@@ -108,9 +108,11 @@ Access.MODERATOR = 30 // at least moderator status is required
 
 Access.MODERATION = 35 // content on moderation
 
-Access.STAFF = 40
+Access.TAG = 40 // users with tag assigned by channel's owner (family, friends, etc)
 
-Access.TAG = 50 // users with tag assigned by channel's owner (family, friends, etc)
+// STAFF and FAMILY are aliases of same access level
+Access.STAFF = 50
+Access.FAMILY = 50
 
 Access.VIP = 60 // users added to 'vip' group
 
