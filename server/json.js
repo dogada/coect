@@ -1,6 +1,8 @@
 'use strict';
 
 var debug = require('debug')('coect:json')
+var misc = require('./misc')
+
 var _ = require('lodash')
 
 function parse(json, cb) {
@@ -29,10 +31,11 @@ function errorCode(err) {
 }
 
 function sendError(res, err) {
-  debug('sendError', err)
+  console.log('json.sendError', err)
   res.status(errorCode(err))
   if (_.isArray(err)) res.json({errors: err})
-  else res.json({error: err.message || '' + err})
+  else if (err instanceof misc.HttpError) res.json({error: err.message || '' + err})
+  else res.json({error: 'Oops... A server error occurred. Support team will be notified.'})
 }
 
 function jsonResponse(res) {
