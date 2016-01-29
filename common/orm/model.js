@@ -186,15 +186,17 @@ Model.validate = function(data, schema, done) {
   //debug('validate', schema)
   Object.keys(data).forEach(function(key) {
     var value = data[key]
+    var spec = schema[key] || {}
     //debug('key', key, 'value', value)
-    Object.keys(schema[key] || {}).forEach(function(check) {
-      if (check === 'optional') return
-      var args = [value].concat(schema[key][check].options || [])
+    Object.keys(spec).forEach(function(check) {
+      if (check === 'optional' || check === 'errorMessage') return
+      if (value === '' && spec.optional) return
+      var args = [value].concat(spec[check].options || [])
       //debug('--check', check, args)
       if (!validator[check].apply(validator, args)) {
         errors.push({
           param: key,
-          msg: schema[key][check].errorMessage || schema[key].errorMessage || 'Bad input: ' + key
+          msg: spec[check].errorMessage || spec.errorMessage || 'Bad input: ' + key
         })
       }
     })

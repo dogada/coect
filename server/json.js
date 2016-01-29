@@ -31,8 +31,8 @@ function errorCode(err) {
 function sendError(res, err) {
   debug('sendError', err)
   res.status(errorCode(err))
-  if (_.isArray(err)) res.json({error: err})
-  else res.json({error: err.message || '' + err});
+  if (_.isArray(err)) res.json({errors: err})
+  else res.json({error: err.message || '' + err})
 }
 
 function jsonResponse(res) {

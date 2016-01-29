@@ -22,6 +22,7 @@ function failHandler(xhr, text) {
     var e = json.errors[0]
     err = e.param + ': ' + e.msg
   }
+  console.log('error', err)
   Site.error(err)
 }
 
