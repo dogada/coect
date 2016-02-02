@@ -38,12 +38,16 @@ function sendError(res, err) {
   else res.json({error: 'Oops... A server error occurred. Support team will be notified.'})
 }
 
+function sendJson(res, err, data) {
+  if (err) return sendError(res, err);
+  res.json(data || {});
+}
+
 function jsonResponse(res) {
   return function(err, data) {
     debug('jsonResponse', err, typeof data)
-    if (err) return sendError(res, err);
-    res.json(data || {});
-  };
+    sendJson(res, err, data)
+  }
 }
 
 /**
@@ -80,6 +84,7 @@ module.exports = {
   stringify: stringify,
   sendError: sendError,
   response: jsonResponse,
+  send: sendJson,
   invalid: invalid,
   errors: errors
 };

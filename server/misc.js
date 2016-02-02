@@ -2,6 +2,7 @@
 
 var util = require('util')
 var _ = require('lodash')
+var json = require('./json')
 
 function HttpError(status, message) {
   if (!(this instanceof HttpError)) return new HttpError(status, message)
@@ -37,10 +38,21 @@ function extendRequest(params) {
   }
 }
 
+
+
+function janus(req, res, next, htmlHandler) {
+  return function (err, data) {
+    if (err) return next(err)
+    if (req.xhr || req.query.format === 'json') json.send(res, err, data)
+    else htmlHandler(data)
+  }
+}
+
 module.exports = {
   HttpError: HttpError,
   isUndefined: isUndefined,
   mapKeys: mapKeys,
   mapInto: mapKeys,
-  extendRequest: extendRequest
+  extendRequest: extendRequest,
+  janus
 }
