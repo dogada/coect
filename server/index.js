@@ -2,6 +2,12 @@
 
 var misc = require('./misc')
 
+// unused on server mixins
+var mixinsStub = {
+  register: function() {
+  }
+}
+
 module.exports = {
   EPOCH: require('../common').EPOCH,
   routes: require('../common/routes'),
@@ -13,5 +19,8 @@ module.exports = {
   misc: misc,
   isUndefined: misc.isUndefined,
   HttpError: misc.HttpError,
-  Access: require('../common/access')
+  Access: require('../common/access'),
+  janus: misc.janus,
+  object: require('../common/object'),
+  mixins: mixinsStub
 }
