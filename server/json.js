@@ -31,10 +31,13 @@ function errorCode(err) {
 }
 
 function sendError(res, err) {
-  console.log('json.sendError', err)
+  console.log('json.sendError', err.status, err)
   res.status(errorCode(err))
   if (_.isArray(err)) res.json({errors: err})
-  else if (err instanceof misc.HttpError) res.json({error: err.message || '' + err})
+  else if (err.status || err instanceof misc.HttpError) res.json({
+    error: err.message || '' + err,
+    code: err.status
+  })
   else res.json({error: 'Oops... A server error occurred. Support team will be notified.'})
 }
 
