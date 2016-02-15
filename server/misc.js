@@ -2,6 +2,7 @@
 
 var util = require('util')
 var _ = require('lodash')
+var riot = require('riot')
 
 function HttpError(status, message) {
   if (!(this instanceof HttpError)) return new HttpError(status, message)
@@ -37,13 +38,19 @@ function extendRequest(params) {
   }
 }
 
-
+function renderTags(res, data) {
+  res.render('index', Object.assign({}, data, {
+    content: data.content && riot.render(data.content.tag, data.content.opts),
+    sidebar: data.sidebar && riot.render(data.sidebar.tag, data.sidebar.opts)
+  }))
+}
 
 function janus(req, res, next, htmlHandler) {
   return function (err, data) {
     if (err) return next(err)
     if (req.xhr || req.query.format === 'json') res.json(data || {})
-    else htmlHandler(data)
+    else if (htmlHandler) htmlHandler(data)
+    else renderTags(res, data)
   }
 }
 
@@ -53,5 +60,6 @@ module.exports = {
   mapKeys: mapKeys,
   mapInto: mapKeys,
   extendRequest: extendRequest,
-  janus
+  janus,
+  renderTags
 }

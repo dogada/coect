@@ -92,10 +92,18 @@ function mounter(tag, opts={}) {
   }
 }
 
+function renderTags(data, done) {
+  if (data.content) Site.mountTag(data.content.tag, data.content.opts, {title: data.title})
+  if (data.sidebar) Site.mountTag(data.sidebar.tag, data.sidebar.opts, {target: 'sidebar'})
+  done()
+}
+
+
 
 module.exports = {
   make,
   mount,
   mounter,
-  getData
+  getData,
+  renderTags
 }
