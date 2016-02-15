@@ -95,9 +95,17 @@ function mounter(tag, opts={}) {
 function renderTags(data, done) {
   if (data.content) Site.mountTag(data.content.tag, data.content.opts, {title: data.title})
   if (data.sidebar) Site.mountTag(data.sidebar.tag, data.sidebar.opts, {target: 'sidebar'})
-  done()
+  if (done) done()
 }
 
+function tagsView(store) {
+  return function(ctx) {
+    getData(ctx, 'data', next => store.get(ctx.path, next), (err, data) => {
+      if (err) return Site.error(err)
+      renderTags(data)
+    })
+  }
+}
 
 
 module.exports = {
@@ -105,5 +113,6 @@ module.exports = {
   mount,
   mounter,
   getData,
-  renderTags
+  renderTags,
+  tagsView
 }
