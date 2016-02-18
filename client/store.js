@@ -63,6 +63,17 @@ class Store {
     this.sendJson('PUT', url, data, done)
   }
 
+  del(url, done) {
+    this.sendJson('DELETE', url, done)
+  }
+
+  save(url, data, done) {
+    debug('save', url, data)
+    var id = data.id
+    delete data.id
+    if (id) this.put(url + (/\/$/.test(url) ? '' : '/') + id, data, done)
+    else this.post(url, data, done)
+  }
 }
 
 module.exports = Store
