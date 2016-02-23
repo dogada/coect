@@ -5,6 +5,7 @@
 
 module.exports = {
   EPOCH: require('../common').EPOCH,
+  dateDiff: require('../common').dateDiff,
   routes: require('../common/routes'),
   ui: require('./ui'),
   mixins: require('./mixins'),

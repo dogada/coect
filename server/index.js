@@ -10,6 +10,7 @@ var mixinsStub = {
 
 module.exports = {
   EPOCH: require('../common').EPOCH,
+  dateDiff: require('../common').dateDiff,
   routes: require('../common/routes'),
   addr: require('./addr'),
   guid: require('./guid'),
