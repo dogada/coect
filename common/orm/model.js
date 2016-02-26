@@ -206,5 +206,12 @@ Model.validate = function(data, schema, done) {
   else done(null, data)
 }
 
+Model.pick = function(data, fields) {
+  var res = {}
+  for (var f of (fields || this.detailFields)) {
+    if (data[f] !== undefined) res[f] = data[f]
+  }
+  return res
+}
 
 module.exports = Model
