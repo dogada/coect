@@ -8,20 +8,16 @@ var mixinsStub = {
   }
 }
 
-module.exports = {
-  EPOCH: require('../common').EPOCH,
-  dateDiff: require('../common').dateDiff,
-  routes: require('../common/routes'),
+var common = require('../common')
+
+module.exports = common.object.assign({}, common, {
   addr: require('./addr'),
   guid: require('./guid'),
   json: require('./json'),
   time: require('./time'),
-  orm: require('../common/orm/'),
   misc: misc,
   isUndefined: misc.isUndefined,
   HttpError: misc.HttpError,
-  Access: require('../common/access'),
   janus: misc.janus,
-  object: require('../common/object'),
   mixins: mixinsStub
-}
+})
