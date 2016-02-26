@@ -1,7 +1,7 @@
 {
   "name": "coect",
   "description": "Common code for Coect projects.",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "main": "server/index.js",
   "browser": "client/index.js",
   "browserify": {
