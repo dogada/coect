@@ -135,7 +135,9 @@ Model.create = function(data, parent, done) {
     },
     function(id) {
       var rec = (id === data.id ? data : _.assign({id: id}, data))
-      Klass.table(id).insert(Klass._transform(rec), 'id').asCallback(this)
+      var q = Klass.table(id).insert(Klass._transform(rec), 'id')
+      debug('SQL', q.toString())
+      q.asCallback(this)
     },
     function(resIds) {
       this.next(resIds[0])
