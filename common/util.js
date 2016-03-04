@@ -17,6 +17,8 @@ exports.truncate = function(str, maxLen, minLen) {
       break
     }
   }
-  return res.trim()
+  res = res.trim()
+  if (res.length < str.length) res += '\u2026'
+  return res
 }
 
