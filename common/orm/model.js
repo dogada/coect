@@ -96,7 +96,7 @@ Model.findOne = function(where, opts, done) {
     opts = {}
   }
   debug(Klass._name('findOne'), where, opts)
-  var q = this.table().where(where)
+  var q = Klass.table().where(where)
   if (opts.select) q = q.select(opts.select)
   else if (Klass.detailFields) q = q.select(Klass.detailFields)
   debug('SQL', q.toString())
@@ -158,6 +158,23 @@ Model.update = function(id, data, done) {
     function(resIds) {
       this.next(resIds[0])
     }
+  ], done);
+}
+
+Model.getOrCreate = function(query, data, parent, done) {
+  var Klass = this
+  debug(this._name('getOrCreate'), query, parent)
+  if (!done) {
+    done = parent
+    parent = null
+  }
+  var flow = tflow([
+    () => Klass.findOne(query, flow),
+    (obj) => {
+      if (obj) return flow.complete(obj)
+      Klass.create(Object.assign({}, query, data), parent, flow)
+    },
+    (id) => Klass.get(id, flow)
   ], done);
 }
 
