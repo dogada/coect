@@ -178,12 +178,13 @@ Model.getOrCreate = function(query, data, parent, done) {
   ], done);
 }
 
-Model.remove = function(id, done) {
-  debug(this._name('remove'), id)
+Model.remove = function(where, done) {
+  debug(this._name('remove'), where)
+  if (typeof where === 'string') where = {id: where}
   var Klass = this
   tflow([
     function() {
-      Klass.table(id).where({id: id}).del().asCallback(this)
+      Klass.table(where.id).where(where).del().asCallback(this)
     },
     function(count) {
       this.next({count: count})
