@@ -7,9 +7,11 @@ var util = require('util')
 var object = require('../object')
 
 function modelize(Klass, done) {
-  return function(err, row) {
+  return function(err, data) {
     if (err) return done(err)
-    return done(null, row ? new Klass(row) : row)
+    if (data && data.length) data = data.map(row => new Klass(row))
+    else if (data) data = new Klass(data)
+    return done(null, data)
   }
 }
 
