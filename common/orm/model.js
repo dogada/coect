@@ -124,16 +124,20 @@ Model.find = function(q, done) {
    Insert data and return new record id. If there is no id generate an EDID.
 */
 Model.create = function(data, parent, done) {
+  var opts = {}
   if (!done && typeof parent === 'function') {
     done = parent
-    parent = undefined
+  } else if (typeof parent === 'string') {
+    opts = { parent }
+  } else if (parent && parent.id) {
+    opts = {parent: parent.id}
   }
-  debug(this._name('create'), parent, data)
+  debug(this._name('create'), opts, data)
   var Klass = this
   tflow([
     function() {
       if (data.id) this.next(data.id)
-      else Klass.edid.generate({parent: parent}, this)
+      else Klass.edid.generate(opts, this)
     },
     function(id) {
       var rec = (id === data.id ? data : _.assign({id: id}, data))
@@ -177,7 +181,7 @@ Model.getOrCreate = function(query, data, parent, done) {
       Klass.create(Object.assign({}, query, data), parent, flow)
     },
     (id) => Klass.get(id, flow)
-  ], done);
+  ], done)
 }
 
 Model.remove = function(where, done) {
