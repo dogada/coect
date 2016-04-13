@@ -30,8 +30,10 @@ class Store {
   get(url, params, done) {
     if (!done) {
       done = params
-      params = null
+      params = {}
     }
+    debug('Store.get', url, params)
+    if (params._format === undefined) params._format = 'json' 
     if (params) url += '?' + $.param(params)
     debug('get', url)
     return $.getJSON(url)

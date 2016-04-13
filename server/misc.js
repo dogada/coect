@@ -48,7 +48,7 @@ function renderTags(res, data) {
 function janus(req, res, next, htmlHandler) {
   return function (err, data) {
     if (err) return next(err)
-    if (req.xhr || req.query.format === 'json') res.json(data || {})
+    if (req.query._format === 'json') res.json(data || {})
     else if (htmlHandler) htmlHandler(data)
     else renderTags(res, data)
   }
