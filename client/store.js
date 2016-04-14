@@ -33,9 +33,13 @@ class Store {
       params = {}
     }
     debug('Store.get', url, params)
-    if (params._format === undefined) params._format = 'json' 
-    if (params) url += '?' + $.param(params)
-    debug('get', url)
+    var qs = $.extend({}, params)
+    for (var k in qs) {
+      if (qs[k] === undefined) delete qs[k]
+    }
+    if (qs._format === undefined) qs._format = 'json' 
+    url += '?' + $.param(qs)
+    debug('Store.get url=', url)
     return $.getJSON(url)
       .done(this.successHandler(done))
       .fail(this.failHandler(done))
