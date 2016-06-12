@@ -38,11 +38,32 @@ function extendRequest(params) {
   }
 }
 
+
+function makeState(data) {
+  var page = {}
+  if (data.content) Object.assign(page, {
+      view: data.content.tag,
+      data: data.content.opts
+  })
+  if (data.sidebar) Object.assign(page, {
+      aside: data.sidebar.tag,
+      asideData: data.sidebar.opts
+  })
+  return {page}
+}
+
 function renderTags(res, data) {
-  res.render('index', Object.assign({}, data, {
-    content: data.content && riot.render(data.content.tag, data.content.opts),
-    sidebar: data.sidebar && riot.render(data.sidebar.tag, data.sidebar.opts)
-  }))
+  if (global.Site) {
+    global.Site.state = (data.page ? data : makeState(data))
+    res.render('layout', {
+      layout: riot.render('site-layout', {site: global.Site})
+    })
+  } else { // old apps support
+    res.render('index', Object.assign({}, data, {
+      content: data.content && riot.render(data.content.tag, data.content.opts),
+      sidebar: data.sidebar && riot.render(data.sidebar.tag, data.sidebar.opts)
+    }))
+  }
 }
 
 function janus(req, res, next, htmlHandler) {
