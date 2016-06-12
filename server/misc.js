@@ -3,6 +3,7 @@
 var util = require('util')
 var _ = require('lodash')
 var riot = require('riot')
+var serialize = require('serialize-javascript')
 
 function HttpError(status, message) {
   if (!(this instanceof HttpError)) return new HttpError(status, message)
@@ -40,7 +41,7 @@ function extendRequest(params) {
 
 
 function makeState(data) {
-  var page = {}
+  var page = {title: data.title, cannonicalUrl: data.cannonicalUrl}
   if (data.content) Object.assign(page, {
       view: data.content.tag,
       data: data.content.opts
@@ -49,13 +50,18 @@ function makeState(data) {
       aside: data.sidebar.tag,
       asideData: data.sidebar.opts
   })
+
   return {page}
 }
 
 function renderTags(res, data) {
   if (global.Site) {
-    global.Site.state = (data.page ? data : makeState(data))
+    let state = global.Site.state = (data.page ? data : makeState(data))
     res.render('layout', {
+      title: state.page.title,
+      dispatch: !state.page.view,
+      cannonicalUrl: state.page.cannonicalUrl,
+      state: serialize(state, {isJSON: true}),
       layout: riot.render('site-layout', {site: global.Site})
     })
   } else { // old apps support
