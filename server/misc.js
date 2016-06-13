@@ -57,9 +57,11 @@ function makeState(data) {
 function renderTags(res, data) {
   if (global.Site) {
     let state = global.Site.state = (data.page ? data : makeState(data))
+    state.user = res.locals.user && res.locals.user.publicData()
+    state.debug = res.locals.clientDebug || ''
+    if (res.locals)
     res.render('layout', {
       title: state.page.title,
-      dispatch: !state.page.view,
       cannonicalUrl: state.page.cannonicalUrl,
       state: serialize(state, {isJSON: true}),
       layout: riot.render('site-layout', {site: global.Site})
