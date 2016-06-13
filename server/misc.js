@@ -55,16 +55,18 @@ function makeState(data) {
 }
 
 function renderTags(res, data) {
-  if (global.Site) {
-    let state = global.Site.state = (data.page ? data : makeState(data))
-    state.user = res.locals.user && res.locals.user.publicData()
-    state.debug = res.locals.clientDebug || ''
-    if (res.locals)
+  let site = res.locals.site
+  if (site) {
+    let state = site.state = Object.assign(
+      {}, 
+      (data.page ? data : makeState(data)),
+      {user: res.locals.user && res.locals.user.publicData()},
+      {debug: res.locals.clientDebug || ''})
     res.render('layout', {
       title: state.page.title,
       cannonicalUrl: state.page.cannonicalUrl,
       state: serialize(state, {isJSON: true}),
-      layout: riot.render('site-layout', {site: global.Site})
+      layout: riot.render('site-layout', {site})
     })
   } else { // old apps support
     res.render('index', Object.assign({}, data, {
