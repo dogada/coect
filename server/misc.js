@@ -55,7 +55,7 @@ function makeState(data) {
 
 function renderSitePage(res, site) {
   let state = site.state
-  res.render('layout', {
+  res.render('index', {
     title: state.page.title,
     cannonicalUrl: state.page.cannonicalUrl,
     state: serialize(state, {isJSON: true}),
