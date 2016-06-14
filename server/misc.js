@@ -41,16 +41,15 @@ function extendRequest(params) {
 
 
 function makeState(data) {
-  var page = {title: data.title, cannonicalUrl: data.cannonicalUrl}
+  var page = {title: data.title, cannonicalUrl: data.cannonicalUrl, data: {}}
   if (data.content) Object.assign(page, {
       view: data.content.tag,
-      data: data.content.opts
+      data: {main: data.content.opts}
   })
-  if (data.sidebar) Object.assign(page, {
-      aside: data.sidebar.tag,
-      asideData: data.sidebar.opts
-  })
-
+  if (data.sidebar) {
+    page.aside = data.sidebar.tag
+    page.data.aside = data.sidebar.opts
+  }
   return {page}
 }
 
