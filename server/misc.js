@@ -54,20 +54,25 @@ function makeState(data) {
   return {page}
 }
 
+function renderSitePage(res, site) {
+  let state = site.state
+  res.render('layout', {
+    title: state.page.title,
+    cannonicalUrl: state.page.cannonicalUrl,
+    state: serialize(state, {isJSON: true}),
+    layout: riot.render('site-layout', {site})
+  })
+}
+
 function renderTags(res, data) {
   let site = res.locals.site
   if (site) {
-    let state = site.state = Object.assign(
+    site.state = Object.assign(
       {}, 
       (data.page ? data : makeState(data)),
       {user: res.locals.user && res.locals.user.publicData()},
       {debug: res.locals.clientDebug || ''})
-    res.render('layout', {
-      title: state.page.title,
-      cannonicalUrl: state.page.cannonicalUrl,
-      state: serialize(state, {isJSON: true}),
-      layout: riot.render('site-layout', {site})
-    })
+    renderSitePage(res, site)
   } else { // old apps support
     res.render('index', Object.assign({}, data, {
       content: data.content && riot.render(data.content.tag, data.content.opts),
