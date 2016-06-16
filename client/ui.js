@@ -107,8 +107,31 @@ function tagsView(store) {
   }
 }
 
+function pageHandler(page) {
+  return (ctx) => {
+    Site.update({
+      page: {
+        view: page.view,
+        main: page.main,
+        aside: page.aside,
+        title: page.title,
+        data: page.data,
+        path: ctx.path,
+        params: ctx.params
+      }
+    })
+  }
+}
+
+function initPages({pages, app, route}) {
+  for (let page of pages) {
+    route(app.url(page.path), pageHandler(page))
+  }
+}
+
 
 module.exports = {
+  initPages,
   make,
   mount,
   mounter,

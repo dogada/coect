@@ -8,5 +8,7 @@ var common = require('../common')
 module.exports = common.object.assign({}, common, {
   ui: require('./ui'),
   mixins: require('./mixins'),
-  Store: require('./store')
+  Store: require('./store'),
+  Api: require('./api'),
+  App: require('./app')
 })
