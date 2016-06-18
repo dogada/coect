@@ -9,6 +9,7 @@ module.exports = common.object.assign({}, common, {
   ui: require('./ui'),
   mixins: require('./mixins'),
   Store: require('./store'),
+  AjaxServer: require('./ajax'),
   Api: require('./api'),
   App: require('./app')
 })

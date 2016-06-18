@@ -2,35 +2,41 @@ var Store = require('./store')
 
 module.exports = class CoectApi {
 
-  constructor({url, ajax}) {
-    this.url = url
-    this.ajax = ajax || new Store()
-   }
-
-  get(path, params, done) {
-    this.ajax.get(this.url(path), params, done)
+  constructor({server, site}) {
+    this.server = server
+    this.site = site
+    this.errorHandler = this.site.error.bind(this.site)
   }
 
-  post(path, params, done) {
-    this.ajax.post(this.url(path), params, done)
+  callback(ok, fail) {
+    return (err, data) => {
+      if (err) return (fail || this.errorHandler)(err)
+      ok(data)
+    }
   }
 
-  put(path, params, done) {
-    this.ajax.put(this.url(path), params, done)
+  get(path, params, ok, fail) {
+    this.server.get(path, params, this.callback(ok, fail))
   }
 
-  del(path, params, done) {
-    this.ajax.del(this.url(path), params, done)
+  post(path, data, ok, fail) {
+    this.server.post(path, data, this.callback(ok, fail))
   }
 
   /**
      Get state from the url, remember it and emmit tag.update() to sync state
    */
   getState(tag, path, params) {
-    this.api.get(path || '', params, tag.site.callback(data => {
+    this.get(path || '', params, this.callback(data => {
       tag.setState(data)
     }))
   }
-  
+ 
+  static makeApis({classes, opts}) {
+    let apis = {}
+    Object.keys(classes).forEach(key => {
+      apis[key] = new classes[key](opts)
+    })
+    return apis
+  }
 }
-
