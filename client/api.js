@@ -27,9 +27,9 @@ module.exports = class CoectApi {
      Get state from the url, remember it and emmit tag.update() to sync state
    */
   getState(tag, path, params) {
-    this.get(path || '', params, this.callback(data => {
+    this.get(path || '', params, data => {
       tag.setState(data)
-    }))
+    })
   }
  
   static makeApis({classes, opts}) {

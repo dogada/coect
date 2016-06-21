@@ -39,7 +39,7 @@ module.exports = class AjaxServer {
       if (qs[k] === undefined) delete qs[k]
     }
     if (qs._format === undefined) qs._format = 'json' 
-    var url = this.base(url) + '?' + $.param(qs)
+    var url = this.base(path) + '?' + $.param(qs)
     debug('Ajax.get url=', url)
     return $.getJSON(url)
       .done(this.successHandler(done))

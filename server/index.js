@@ -15,6 +15,7 @@ module.exports = common.object.assign({}, common, {
   guid: require('./guid'),
   json: require('./json'),
   time: require('./time'),
+  router: require('./router'),
   misc: misc,
   isUndefined: misc.isUndefined,
   HttpError: misc.HttpError,

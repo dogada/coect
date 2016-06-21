@@ -107,9 +107,9 @@ function tagsView(store) {
   }
 }
 
-function pageHandler(page) {
+function pageHandler(page, site) {
   return (ctx) => {
-    Site.update({
+    site.update({
       page: {
         view: page.view,
         main: page.main,
@@ -123,15 +123,14 @@ function pageHandler(page) {
   }
 }
 
-function initPages({pages, app, route}) {
+function routePages({pages, route, url, site}) {
   for (let page of pages) {
-    route(app.url(page.path), pageHandler(page))
+    route(url(page.path), pageHandler(page, site))
   }
 }
 
-
 module.exports = {
-  initPages,
+  routePages,
   make,
   mount,
   mounter,
