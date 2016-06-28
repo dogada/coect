@@ -10,6 +10,7 @@ module.exports = common.object.assign({}, common, {
   mixins: require('./mixins'),
   Store: require('./store'),
   AjaxServer: require('./ajax'),
+  SiteAjaxServer: require('./ajaxserver'),
   Api: require('./api'),
   App: require('./app')
 })
